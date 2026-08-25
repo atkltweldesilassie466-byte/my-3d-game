@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Open World Adventure</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      user-select: none;
+    }
+    #ui {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      color: white;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 15px 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+    #ui h1 {
+      margin: 0 0 8px 0;
+      font-size: 20px;
+      color: #00ffcc;
+    }
+    #ui p {
+      margin: 5px 0;
+      font-size: 14px;
+    }
+    #instructions {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 13px;
+      text-align: center;
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+
+  <div id="ui">
+    <h1>Open World Explorer</h1>
+    <p>Coins Collected: <span id="coins" style="color: #ffd700; font-weight: bold;">0</span> / 10</p>
+  </div>
+
+  <div id="instructions">
+    Use <b>W, A, S, D</b> or <b>Arrow Keys</b> to move around the world!
+  </div>
+
+  <script>
+    // 1. Scene & Camera Setup
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x87ceeb); // Sky blue
+    scene.fog = new THREE.FogExp2(0x87ceeb, 0.015);
+
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.shadowMap.enabled = true;
+    document.body.appendChild(renderer.domElement);
+
+    // 2. Lights
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+    scene.add(ambientLight);
+
+    const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+    dirLight.position.set(50, 100, 50);
+    dirLight.castShadow = true;
+    scene.add(dirLight);
+
+    // 3. Open World Terrain (Large Ground)
+    const worldSize = 300;
+    const groundGeo = new THREE.PlaneGeometry(worldSize, worldSize);
+    const groundMat = new THREE.MeshLambertMaterial({ color: 0x3b7a57 }); // Island Green
+    const ground = new THREE.Mesh(groundGeo, groundMat);
+    ground.rotation.x = -Math.PI / 2;
+    ground.receiveShadow = true;
+    scene.add(ground);
+
+    // 4. Player Character (3D Explorer)
+    const playerGroup = new THREE.Group();
+    
+    // Body
+    const bodyGeo = new THREE.CylinderGeometry(0.5, 0.5, 1.5, 16);
+    const bodyMat = new THREE.MeshLambertMaterial({ color: 0xff4444 });
+    const body = new THREE.Mesh(bodyGeo, bodyMat);
+    body.position.y = 0.75;
+    playerGroup.add(body);
+
+    // Head
+    const headGeo = new THREE.SphereGeometry(0.4, 16, 16);
+    const headMat = new THREE.MeshLambertMaterial({ color: 0xffcc99 });
+    const head = new THREE.Mesh(headGeo, headMat);
+    head.position.y = 1.8;
+    playerGroup.add(head);
+
+    scene.add(playerGroup);
+    playerGroup.position.set(0, 0, 0);
+
+    // 5. Trees & Nature (Environment)
+    function createTree(x, z) {
+      const tree = new THREE.Group();
+      
+      const trunkGeo = new THREE.CylinderGeometry(0.3, 0.4, 2, 8);
+      const trunkMat = new THREE.MeshLambertMaterial({ color: 0x8b4513 });
+      const trunk = new THREE.Mesh(trunkGeo, trunkMat);
+      trunk.position.y = 1;
+      tree.add(trunk);
+
+      const leavesGeo = new THREE.ConeGeometry(1.5, 3, 8);
+      const leavesMat = new THREE.MeshLambertMaterial({ color: 0x2e8b57 });
+      const leaves = new THREE.Mesh(leavesGeo, leavesMat);
+      leaves.position.y = 3;
+      tree.add(leaves);
+
+      tree.position.set(x, 0, z);
+      scene.add(tree);
+    }
+
+    // Generate random trees around the map
+    for (let i = 0; i < 60; i++) {
+      const x = (Math.random() - 0.5) * (worldSize - 20);
+      const z = (Math.random() - 0.5) * (worldSize - 20);
+      if (Math.abs(x) > 5 || Math.abs(z) > 5) {
+        createTree(x, z);
+      }
+    }
+
+    // 6. Collectible Coins
+    const coins = [];
+    const coinGeo = new THREE.CylinderGeometry(0.6, 0.6, 0.1, 16);
+    const coinMat = new THREE.MeshStandardMaterial({ color: 0xffd700, metalness: 0.8, roughness: 0.2 });
+
+    for (let i = 0; i < 10; i++) {
+      const coin = new THREE.Mesh(coinGeo, coinMat);
+      coin.rotation.x = Math.PI / 2;
+      coin.position.set(
+        (Math.random() - 0.5) * (worldSize - 40),
+        1,
+        (Math.random() - 0.5) * (worldSize - 40)
+      );
+      scene.add(coin);
+      coins.push(coin);
+    }
+
+    // 7. Controls & Movement
+    const keys = {};
+    let score = 0;
+    const speed = 0.25;
+
+    document.addEventListener('keydown', (e) => keys[e.key.toLowerCase()] = true);
+    document.addEventListener('keyup', (e) => keys[e.key.toLowerCase()] = false);
+
+    // 8. Game Loop
+    function animate() {
+      requestAnimationFrame(animate);
+
+      let moved = false;
+      let moveX = 0;
+      let moveZ = 0;
+
+      if (keys['w'] || keys['arrowup']) { moveZ -= speed; moved = true; }
+      if (keys['s'] || keys['arrowdown']) { moveZ += speed; moved = true; }
+      if (keys['a'] || keys['arrowleft']) { moveX -= speed; moved = true; }
+      if (keys['d'] || keys['arrowright']) { moveX += speed; moved = true; }
+
+      // Update Player Position
+      playerGroup.position.x += moveX;
+      playerGroup.position.z += moveZ;
+
+      // Rotate player to direction of movement
+      if (moved) {
+        playerGroup.rotation.y = Math.atan2(moveX, moveZ);
+      }
+
+      // Keep player inside world bounds
+      const halfWorld = worldSize / 2 - 2;
+      playerGroup.position.x = Math.max(-halfWorld, Math.min(halfWorld, playerGroup.position.x));
+      playerGroup.position.z = Math.max(-halfWorld, Math.min(halfWorld, playerGroup.position.z));
+
+      // Third-person Camera Follow
+      camera.position.x = playerGroup.position.x;
+      camera.position.y = playerGroup.position.y + 8;
+      camera.position.z = playerGroup.position.z + 12;
+      camera.lookAt(playerGroup.position);
+
+      // Rotate Coins and Check Collection
+      coins.forEach((coin, index) => {
+        if (coin.visible) {
+          coin.rotation.z += 0.03;
+          
+          // Distance check
+          const dist = playerGroup.position.distanceTo(coin.position);
+          if (dist < 1.5) {
+            coin.visible = false;
+            score++;
+            document.getElementById('coins').innerText = score;
+
+            if (score === 10) {
+              alert('🎉 Congratulation! You explored the world and collected all coins!');
+            }
+          }
+        }
+      });
+
+      renderer.render(scene, camera);
+    }
+
+    // Window Resize Handling
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    animate();
+  </script>
+</body>
+</html>
