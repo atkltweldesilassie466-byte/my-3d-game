@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="am">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ሳዳም ሱቅ | Saddam Shop Delivery</title>
+    <title>Saddam Shop Delivery</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@400;600;700&display=swap');
-        body { font-family: 'Noto Sans Ethiopic', sans-serif; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 pb-20">
@@ -17,8 +17,8 @@
     <header class="bg-emerald-600 text-white sticky top-0 z-40 shadow-md">
         <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
             <div>
-                <h1 class="text-2xl font-bold tracking-wide">ሳዳም ሱቅ <span class="text-xs font-normal bg-emerald-800 px-2 py-0.5 rounded-full ml-1">Saddam Shop</span></h1>
-                <p class="text-xs text-emerald-100"><i class="fa-solid fa-phone mr-1"></i> ትዕዛዝ ለማስገባት: <a href="tel:0935911623" class="underline font-bold">0935911623</a></p>
+                <h1 class="text-2xl font-bold tracking-wide">Saddam Shop <span class="text-xs font-normal bg-emerald-800 px-2 py-0.5 rounded-full ml-1">Delivery</span></h1>
+                <p class="text-xs text-emerald-100"><i class="fa-solid fa-phone mr-1"></i> To place an order: <a href="tel:0935911623" class="underline font-bold">0935911623</a></p>
             </div>
             <div class="flex items-center space-x-3">
                 <button onclick="openCart()" class="relative bg-emerald-700 hover:bg-emerald-800 p-2.5 rounded-full text-white transition">
@@ -26,14 +26,14 @@
                     <span id="cartCount" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">0</span>
                 </button>
                 <button onclick="openAdminModal()" class="bg-emerald-800 hover:bg-emerald-900 px-3 py-1.5 rounded-lg text-xs font-medium flex items-center">
-                    <i class="fa-solid fa-user-lock mr-1.5"></i> የሱቅ ባለቤት
+                    <i class="fa-solid fa-user-lock mr-1.5"></i> Shop Owner
                 </button>
             </div>
         </div>
         <!-- Search Bar -->
         <div class="max-w-6xl mx-auto px-4 pb-3">
             <div class="relative">
-                <input type="text" id="searchInput" oninput="filterProducts()" placeholder="ዕቃዎችን እዚህ ይፈልጉ (ለምሳሌ: ስኳር, ዘይት)..." class="w-full pl-10 pr-4 py-2 rounded-xl text-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-300 shadow-inner">
+                <input type="text" id="searchInput" oninput="filterProducts()" placeholder="Search items here (e.g., sugar, oil)..." class="w-full pl-10 pr-4 py-2 rounded-xl text-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-300 shadow-inner">
                 <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-gray-400"></i>
             </div>
         </div>
@@ -42,8 +42,8 @@
     <!-- Main Content -->
     <main class="max-w-6xl mx-auto px-4 py-6">
         <div class="flex justify-between items-center mb-4">
-            <h2 class="text-xl font-bold text-gray-800 border-l-4 border-emerald-600 pl-3">የሱቃችን ዕቃዎች</h2>
-            <span class="text-xs text-gray-500" id="itemCountDisplay">15 ዕቃዎች አሉ</span>
+            <h2 class="text-xl font-bold text-gray-800 border-l-4 border-emerald-600 pl-3">Our Products</h2>
+            <span class="text-xs text-gray-500" id="itemCountDisplay">15 items available</span>
         </div>
 
         <!-- Product Grid -->
@@ -56,7 +56,7 @@
     <div id="cartModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex justify-end">
         <div class="bg-white w-full max-w-md h-full flex flex-col shadow-2xl">
             <div class="p-4 bg-emerald-600 text-white flex justify-between items-center">
-                <h3 class="font-bold text-lg"><i class="fa-solid fa-basket-shopping mr-2"></i>የመረጧቸው ዕቃዎች</h3>
+                <h3 class="font-bold text-lg"><i class="fa-solid fa-basket-shopping mr-2"></i>Selected Items</h3>
                 <button onclick="closeCart()" class="text-white hover:text-gray-200 text-xl font-bold">&times;</button>
             </div>
             
@@ -66,24 +66,24 @@
 
             <div class="p-4 border-t bg-gray-50 space-y-3">
                 <div class="flex justify-between font-bold text-lg">
-                    <span>ጠቅላላ ዋጋ:</span>
+                    <span>Total Price:</span>
                     <span id="cartTotal" class="text-emerald-600">0 Birr</span>
                 </div>
 
                 <!-- Customer Delivery Form -->
                 <div class="space-y-2 pt-2 border-t border-gray-200">
-                    <h4 class="text-xs font-bold text-gray-600 uppercase tracking-wider">የማድረሻ አድራሻ (አስገዳጅ)</h4>
-                    <input type="text" id="custName" placeholder="ሙሉ ስምዎ" class="w-full p-2 border rounded text-sm focus:ring-1 focus:ring-emerald-500">
-                    <input type="tel" id="custPhone" placeholder="ስልክ ቁጥር (ለምሳሌ: 0911...)" class="w-full p-2 border rounded text-sm focus:ring-1 focus:ring-emerald-500">
+                    <h4 class="text-xs font-bold text-gray-600 uppercase tracking-wider">Delivery Address (Required)</h4>
+                    <input type="text" id="custName" placeholder="Full Name" class="w-full p-2 border rounded text-sm focus:ring-1 focus:ring-emerald-500">
+                    <input type="tel" id="custPhone" placeholder="Phone Number (e.g., 0911...)" class="w-full p-2 border rounded text-sm focus:ring-1 focus:ring-emerald-500">
                     <div class="grid grid-cols-2 gap-2">
-                        <input type="text" id="custBlock" placeholder="የብሎክ ቁጥር" class="p-2 border rounded text-sm focus:ring-1 focus:ring-emerald-500">
-                        <input type="text" id="custHouse" placeholder="የቤት ቁጥር" class="p-2 border rounded text-sm focus:ring-1 focus:ring-emerald-500">
+                        <input type="text" id="custBlock" placeholder="Block Number" class="p-2 border rounded text-sm focus:ring-1 focus:ring-emerald-500">
+                        <input type="text" id="custHouse" placeholder="House Number" class="p-2 border rounded text-sm focus:ring-1 focus:ring-emerald-500">
                     </div>
                 </div>
 
                 <button onclick="placeOrder()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl transition shadow-lg flex items-center justify-center space-x-2">
                     <i class="fa-solid fa-paper-plane"></i>
-                    <span>ትዕዛዝ በስልክ እዘዝ (0935911623)</span>
+                    <span>Order by Phone (0935911623)</span>
                 </button>
             </div>
         </div>
@@ -93,7 +93,7 @@
     <div id="adminAuthModal" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl relative">
             <button onclick="closeAdminAuthModal()" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-lg">&times;</button>
-            <h3 class="text-xl font-bold text-center text-emerald-700 mb-4"><i class="fa-solid fa-lock mr-2"></i>የሱቅ ባለቤት መግቢያ</h3>
+            <h3 class="text-xl font-bold text-center text-emerald-700 mb-4"><i class="fa-solid fa-lock mr-2"></i>Shop Owner Login</h3>
             <div class="space-y-3">
                 <div>
                     <label class="text-xs text-gray-600 font-semibold">Username</label>
@@ -103,8 +103,8 @@
                     <label class="text-xs text-gray-600 font-semibold">Password</label>
                     <input type="password" id="adminPass" class="w-full border rounded-lg p-2 text-sm focus:ring-2 focus:ring-emerald-500 outline-none">
                 </div>
-                <p id="adminAuthError" class="text-red-500 text-xs hidden text-center">የተሳሳተ Username ወይም Password!</p>
-                <button onclick="verifyAdmin()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 rounded-lg font-bold transition">ግባ</button>
+                <p id="adminAuthError" class="text-red-500 text-xs hidden text-center">Invalid Username or Password!</p>
+                <button onclick="verifyAdmin()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 rounded-lg font-bold transition">Login</button>
             </div>
         </div>
     </div>
@@ -113,25 +113,25 @@
     <div id="adminDashboardModal" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] flex flex-col shadow-2xl relative overflow-hidden">
             <div class="p-4 bg-emerald-700 text-white flex justify-between items-center">
-                <h3 class="font-bold text-lg"><i class="fa-solid fa-sliders mr-2"></i>የሱቅ ማስተካከያ (Admin Dashboard)</h3>
+                <h3 class="font-bold text-lg"><i class="fa-solid fa-sliders mr-2"></i>Shop Management (Admin Dashboard)</h3>
                 <button onclick="closeAdminDashboard()" class="text-white hover:text-gray-200 text-xl font-bold">&times;</button>
             </div>
 
             <div class="p-4 overflow-y-auto space-y-6">
                 <!-- Add Product Form -->
                 <div class="bg-gray-50 p-4 rounded-xl border border-gray-200">
-                    <h4 class="font-bold text-sm text-gray-700 mb-3"><i class="fa-solid fa-plus-circle text-emerald-600 mr-1"></i>አዲስ ዕቃ መጨመሪያ</h4>
+                    <h4 class="font-bold text-sm text-gray-700 mb-3"><i class="fa-solid fa-plus-circle text-emerald-600 mr-1"></i>Add New Item</h4>
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                        <input type="text" id="newProdName" placeholder="የዕቃው ስም" class="p-2 border rounded text-sm">
-                        <input type="number" id="newProdPrice" placeholder="ዋጋ (በብር)" class="p-2 border rounded text-sm">
-                        <input type="text" id="newProdImage" placeholder="የምስል URL (አማራጭ)" class="p-2 border rounded text-sm">
+                        <input type="text" id="newProdName" placeholder="Item Name" class="p-2 border rounded text-sm">
+                        <input type="number" id="newProdPrice" placeholder="Price (in Birr)" class="p-2 border rounded text-sm">
+                        <input type="text" id="newProdImage" placeholder="Image URL (Optional)" class="p-2 border rounded text-sm">
                     </div>
-                    <button onclick="addNewProduct()" class="mt-3 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-bold">ዕቃው ይጨመር</button>
+                    <button onclick="addNewProduct()" class="mt-3 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-bold">Add Item</button>
                 </div>
 
                 <!-- Existing Products List -->
                 <div>
-                    <h4 class="font-bold text-sm text-gray-700 mb-3"><i class="fa-solid fa-list text-emerald-600 mr-1"></i>የነባር ዕቃዎች ዋጋ መቀየሪያ</h4>
+                    <h4 class="font-bold text-sm text-gray-700 mb-3"><i class="fa-solid fa-list text-emerald-600 mr-1"></i>Manage Existing Items</h4>
                     <div id="adminProductList" class="space-y-2">
                         <!-- Admin products injected here -->
                     </div>
@@ -143,21 +143,21 @@
     <script>
         // Initial Products List
         const defaultProducts = [
-            { id: 1, name: "ስኳር", price: 200, img: "https://images.unsplash.com/photo-1581441363689-1f3c3c414635?w=300" },
-            { id: 2, name: "እሩዝ", price: 150, img: "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=300" },
-            { id: 3, name: "መካሮኒ", price: 190, img: "https://images.unsplash.com/photo-1621996346565-e3d5d6281288?w=300" },
-            { id: 4, name: "የዳቦ ዱቄት", price: 150, img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=300" },
-            { id: 5, name: "2 ሊትር ውኃ", price: 60, img: "https://images.unsplash.com/photo-1548839140-29a749e1bc4e?w=300" },
-            { id: 6, name: "እንቁላል", price: 24, img: "https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=300" },
-            { id: 7, name: "እንጀራ", price: 30, img: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=300" },
-            { id: 8, name: "ሳን ቺፕስ (Sun chips)", price: 40, img: "https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=300" },
-            { id: 9, name: "ሮል ኦሞ (ትንሽ)", price: 750, img: "https://images.unsplash.com/photo-1585842378054-ee2e52f94ba2?w=300" },
-            { id: 10, name: "ሮል ኦሞ (ትልቅ)", price: 1800, img: "https://images.unsplash.com/photo-1585842378054-ee2e52f94ba2?w=300" },
-            { id: 11, name: "ዘይት", price: 2000, img: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=300" },
-            { id: 12, name: "ሶፍት", price: 80, img: "https://images.unsplash.com/photo-1584556812952-905ffd0c611a?w=300" },
-            { id: 13, name: "ዋይፕስ", price: 140, img: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=300" },
-            { id: 14, name: "ለስላሳ (Pepsi/Coca)", price: 70, img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=300" },
-            { id: 15, name: "ሳሙና", price: 50, img: "https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?w=300" }
+            { id: 1, name: "Sugar", price: 200, img: "https://images.unsplash.com/photo-1581441363689-1f3c3c414635?w=300" },
+            { id: 2, name: "Rice", price: 150, img: "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=300" },
+            { id: 3, name: "Macaroni", price: 190, img: "https://images.unsplash.com/photo-1621996346565-e3d5d6281288?w=300" },
+            { id: 4, name: "Wheat Flour", price: 150, img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=300" },
+            { id: 5, name: "2L Bottled Water", price: 60, img: "https://images.unsplash.com/photo-1548839140-29a749e1bc4e?w=300" },
+            { id: 6, name: "Eggs", price: 24, img: "https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=300" },
+            { id: 7, name: "Injera", price: 30, img: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=300" },
+            { id: 8, name: "Sun Chips", price: 40, img: "https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=300" },
+            { id: 9, name: "Omo Detergent (Small)", price: 750, img: "https://images.unsplash.com/photo-1585842378054-ee2e52f94ba2?w=300" },
+            { id: 10, name: "Omo Detergent (Large)", price: 1800, img: "https://images.unsplash.com/photo-1585842378054-ee2e52f94ba2?w=300" },
+            { id: 11, name: "Cooking Oil", price: 2000, img: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=300" },
+            { id: 12, name: "Tissue Paper", price: 80, img: "https://images.unsplash.com/photo-1584556812952-905ffd0c611a?w=300" },
+            { id: 13, name: "Wet Wipes", price: 140, img: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=300" },
+            { id: 14, name: "Soft Drink (Pepsi/Coca)", price: 70, img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=300" },
+            { id: 15, name: "Soap", price: 50, img: "https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?w=300" }
         ];
 
         let products = JSON.parse(localStorage.getItem('sadam_products')) || defaultProducts;
@@ -169,7 +169,7 @@
 
         function renderProducts(items = products) {
             const grid = document.getElementById('productGrid');
-            document.getElementById('itemCountDisplay').innerText = `${items.length} ዕቃዎች አሉ`;
+            document.getElementById('itemCountDisplay').innerText = `${items.length} items available`;
             grid.innerHTML = '';
 
             items.forEach(p => {
@@ -179,11 +179,11 @@
                         <div class="p-3 flex-1 flex flex-col justify-between">
                             <div>
                                 <h3 class="font-bold text-gray-800 text-sm">${p.name}</h3>
-                                <p class="text-emerald-600 font-extrabold text-base mt-1">${p.price} <span class="text-xs text-gray-500 font-normal">ብር</span></p>
+                                <p class="text-emerald-600 font-extrabold text-base mt-1">${p.price} <span class="text-xs text-gray-500 font-normal">Birr</span></p>
                             </div>
                             <button onclick="addToCart(${p.id})" class="mt-3 w-full bg-emerald-50 hover:bg-emerald-600 text-emerald-700 hover:text-white border border-emerald-200 hover:border-transparent py-1.5 rounded-xl font-bold text-xs transition flex items-center justify-center space-x-1">
                                 <i class="fa-solid fa-plus"></i>
-                                <span>መዝግብ</span>
+                                <span>Add to Cart</span>
                             </button>
                         </div>
                     </div>
@@ -220,7 +220,7 @@
             cartTotal.innerText = totalPrice + " Birr";
 
             if (cart.length === 0) {
-                cartItems.innerHTML = `<p class="text-center text-gray-400 py-10">ምንም የመረጡት ዕቃ የለም!</p>`;
+                cartItems.innerHTML = `<p class="text-center text-gray-400 py-10">Your cart is empty!</p>`;
                 return;
             }
 
@@ -230,7 +230,7 @@
                     <div class="flex items-center justify-between bg-gray-50 p-3 rounded-xl">
                         <div>
                             <p class="font-bold text-sm">${item.name}</p>
-                            <p class="text-xs text-emerald-600 font-bold">${item.price} birr x ${item.qty} = ${item.price * item.qty} birr</p>
+                            <p class="text-xs text-emerald-600 font-bold">${item.price} Birr x ${item.qty} = ${item.price * item.qty} Birr</p>
                         </div>
                         <div class="flex items-center space-x-2">
                             <button onclick="changeQty(${item.id}, -1)" class="w-6 h-6 bg-gray-200 rounded text-sm font-bold flex items-center justify-center">-</button>
@@ -263,25 +263,24 @@
             const house = document.getElementById('custHouse').value.trim();
 
             if (cart.length === 0) {
-                alert("እባክዎን በመጀመሪያ የሚፈልጉትን ዕቃ ይምረጡ!");
+                alert("Please select at least one item first!");
                 return;
             }
             if (!name || !phone || !block || !house) {
-                alert("እባክዎን ስምዎን፣ ስልክዎን፣ የብሎክ እና የቤት ቁጥርዎን በሙሉ ያስገቡ!");
+                alert("Please fill in your full name, phone number, block number, and house number!");
                 return;
             }
 
-            let orderText = `*ሳዳም ሱቅ - አዲስ ትዕዛዝ*\n`;
-            orderText += `ደበኛ: ${name}\nስልክ: ${phone}\nብሎክ: ${block} | ቤት ቁጥር: ${house}\n\n*የታዘዙ ዕቃዎች:*\n`;
+            let orderText = `*Saddam Shop - New Order*\n`;
+            orderText += `Customer: ${name}\nPhone: ${phone}\nBlock: ${block} | House No: ${house}\n\n*Ordered Items:*\n`;
             cart.forEach(c => {
-                orderText += `- ${c.name} (${c.qty}x) = ${c.price * c.qty} birr\n`;
+                orderText += `- ${c.name} (${c.qty}x) = ${c.price * c.qty} Birr\n`;
             });
             const total = cart.reduce((s, i) => s + (i.price * i.qty), 0);
-            orderText += `\n*ጠቅላላ ዋጋ:* ${total} Birr`;
+            orderText += `\n*Total Price:* ${total} Birr`;
 
-            // Prompt call option or auto popup
             window.location.href = `tel:0935911623`;
-            alert("ትዕዛዝዎ ተዘጋጅቷል! ስልክ በመደወል አድራሻዎንና የታዘዙትን ዕቃዎች ያረጋግጡ።\n\n" + orderText);
+            alert("Your order is ready! Please confirm your address and items on the call.\n\n" + orderText);
         }
 
         // Admin Functionality
@@ -315,8 +314,8 @@
                         <span class="font-bold w-1/3">${p.name}</span>
                         <div class="flex items-center space-x-2">
                             <input type="number" id="price-input-${p.id}" value="${p.price}" class="w-20 p-1 border rounded text-center font-bold">
-                            <button onclick="updatePrice(${p.id})" class="bg-blue-600 text-white px-2 py-1 rounded text-xs font-bold">ቀይር</button>
-                            <button onclick="deleteProduct(${p.id})" class="bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">አጥፋ</button>
+                            <button onclick="updatePrice(${p.id})" class="bg-blue-600 text-white px-2 py-1 rounded text-xs font-bold">Update</button>
+                            <button onclick="deleteProduct(${p.id})" class="bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">Delete</button>
                         </div>
                     </div>
                 `;
@@ -331,13 +330,13 @@
                     prod.price = newPrice;
                     saveProducts();
                     renderProducts();
-                    alert(`${prod.name} ዋጋ ወደ ${newPrice} birr ተቀይሯል!`);
+                    alert(`${prod.name} price updated to ${newPrice} Birr!`);
                 }
             }
         }
 
         function deleteProduct(id) {
-            if (confirm("እርግጠኛ ነዎት ይህ ዕቃ ይጥፋ?")) {
+            if (confirm("Are you sure you want to delete this item?")) {
                 products = products.filter(p => p.id !== id);
                 saveProducts();
                 renderProducts();
@@ -351,7 +350,7 @@
             const img = document.getElementById('newProdImage').value.trim() || 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=300';
 
             if (!name || isNaN(price)) {
-                alert("እባክዎን የዕቃውን ስም እና ትክክለኛ ዋጋ ያስገቡ!");
+                alert("Please enter a valid item name and price!");
                 return;
             }
 
@@ -364,7 +363,7 @@
             document.getElementById('newProdName').value = '';
             document.getElementById('newProdPrice').value = '';
             document.getElementById('newProdImage').value = '';
-            alert("አዲስ ዕቃ በተሳካ ሁኔታ ተጨምሯል!");
+            alert("New item added successfully!");
         }
 
         // Init
